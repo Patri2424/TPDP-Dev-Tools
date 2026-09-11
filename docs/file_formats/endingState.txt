@@ -1,0 +1,13 @@
+TPDP: gn_dat1.arc/ending/endingState.csv
+YnK: gn_dat1.arc/ending/endingState.csv
+This file is a list of checkpoints at which to switch scenes for the end credits. It is used for both the credits after Shinki (in TPDP and YnK) and the credits after the Getsus (YnK; the one with the Puppets frolicking about)
+The checkpoints are measured in audio samples; when ending.ogg reaches a checkpoint's value, the scene's background and foreground switches from one to the next. Puppets onscreen, if post-game credits are running, are unaffected.
+
+Do note if the game freezes in any way, for example by clicking and holding on the window, the Puppet spawns will stop, but the scene switches will still happen when the ending track reaches the sample count set for that checkpoint. In other words, Puppets and the scene they appear in can desync this way.
+This also means the end credits will always take the same duration; some Puppets may not appear if the game is frozen this way for too long.
+While the game expects this file to be in order, if the next checkpoint's sample count is lower than the current count, the scene will switch immediately. The same happens if the game freezes past a checkpoint.
+
+The labels next to each checkpoint aren't important to the game, but they're helpful to know what scene comes up at what designated time.
+
+The final checkpoint automatically dismisses the THE END screen at the end, but the vanilla value is past the point at which the vanilla ending.ogg finishes. Ergo, it is never dismissed automatically by default. Not that it matters, though; if the screen IS dismissed, it will automatically come back once the music finishes. It's probably why this was essentially scrapped.
+No matter any of these checkpoints, the end credits will only accept the player's input to end once ending.ogg has finished playing completely. If any scene is currently playing when this happens, due to checkpoints being higher than the track's duration, it'll simply be stopped in place once an input is made.
