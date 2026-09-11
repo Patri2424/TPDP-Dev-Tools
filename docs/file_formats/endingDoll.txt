@@ -1,0 +1,41 @@
+TPDP: N/A. File only found in YnK.
+YnK: gn_dat1.arc/ending/endingDoll.csv
+This file controls when each Puppet appears during the post-Getsus ending credits, and what it'll be doing when it appears.
+From the moment the title fades, the game will start reading through each line to display a Puppet.
+The scene labels and Puppet counter resetting aren't important to the game, but they help match the Puppet spawns to the music and each scene.
+
+Each line is read as follows:
+[Puppet Spawn Number],[ID of displayed Puppet],[Screen Position],[Behavior],[Facing Direction],[Scene Label]
+
+Puppet ID matches the one given in the editor. The game will call the map object (ID+400) from gn_dat5.arc/map/obj.
+Do keep in mind this call WILL respect ObjGLoadFlag.bin in the same folder, so if a Puppet doesn't have its object set to be loaded, it won't appear.
+You CAN call non-Puppet objects this way, so long as their flag in the binary file is set. However, you can only call objects with IDs above 400. Negative numbers won't work to call lower-ID objects.
+
+Screen Position accepts 3 values:
+
+0: Displays the Puppet along the path, right at the back of it and behind the player.
+1: Displays the Puppet in the background, scrolling by slower. Do note Puppets in the background will come into view later than other Puppets; the same goes for Puppets that move.
+2: Displays the Puppet in the foreground, right in front of the path.
+Any values equal or higher than 3 behave the same as 0.
+
+Behavior accepts 5 values:
+
+0: The Puppet paces in position, animating as it would in the overworld.
+1: The Puppet walks left. The Puppet will still face in the direction it is set to. Puppets moving left will come into view much later after they're called. Unfortunately, there's no behavior to make Puppets walk in other directions.
+2: The Puppet constantly switches between facing left and right. This ignores the Puppet's set facing direction.
+3: The Puppet jumps in place.
+4: The Puppet constantly spins clockwise.
+Any values equal or higher tna 5 behave the same as 0.
+
+Lastly, Facing Direction accepts any value equal to the amount of rows the Puppet's overworld sprite has. Therefore, the facing direction matches its corresponding row:
+
+0: Faces down.
+1: Faces left.
+2: Faces right.
+3: Faces up.
+4-7: Follow the same pattern, but instead call the Puppet's boat sprites, if they have them.
+8-11: Same, but calling the bicycle sprites instead.
+
+The Scene Label needs to be present, due to how .csv files are formatted. However, its actual value doesn't matter to the game. Use it as a guideline for yourself.
+
+As noted in endingState.csv's documentation, if the game freezes for any reason, the scene change checkpoints will continue to be synced to the music, but Puppet calls won't be affected and will lag behind.
